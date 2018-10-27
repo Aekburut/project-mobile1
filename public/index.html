@@ -70,7 +70,7 @@
       </div>
     </ons-toolbar>
 
-    <ons-tabbar swipeable position="auto">
+    <ons-tabbar swipeable position="auto"  id="tabbar">
       <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active-icon="fa-bomb" badge="Geem"
         active>
       </ons-tab>
@@ -101,7 +101,7 @@
       <script id="icon_template" type="text/template">
           <ons-row style="height:120px" vertical-align="center">
         <% categories.forEach(function(category){%>
-        <ons-col style="background:#FFD700;" width="33%">
+        <ons-col style="background:#FFD700;" width="33%" onclick="changeTab('<%= category.name %>')">
           <p style="text-align: center; margin: 10px;">
             <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
           </p>
@@ -179,7 +179,7 @@
       <hr>
       <p><b>แบรนด์สุดฮิต</b> อัพเดทใหม่วันนี้</p>
       
-      <ons-row>
+      <ons-row >
           <div id="allPr"></div>
         
         
@@ -189,7 +189,7 @@
         %>  
         <ons-col width="100%">
           <ons-card>
-            <img src=" <%=item.photo%>" alt="Onsen UI" style="width: 100%">
+            <img src=" <%=item.photo%>" alt="Onsen UI" style="width: 50%">
             <div class="title">
               <%=item.title%>
             </div>
@@ -227,11 +227,20 @@
       getCartData();
     }
     else if (event.index == 2) {
-      console.log('product clicked');
-      // get data for cart screen  
-      getallProductData();
-    }
+      console.log('All product clicked');
+        var name1 = localStorage.getItem('name');
+        console.log("test"+name1)
+        // get data for all product screen  
+        if(name1==null){
+          console.log(name1)
+          getproductData();
+    }}
 
+    function changeTab(name) {
+      localStorage.setItem('name', name);
+      console.log(name)
+  document.getElementById('tabbar').setActiveTab(2);
+}
 
   });
   function getHomeData() {
@@ -271,24 +280,24 @@
     });
   }
 
-  function getallProductData() {
-     var apr = db.collection("product")//.where("category", "==", "sport"); //เลือกเฉพาะ
+  function getallProductData(name1) {
+    if(name1==null){
+      var apr = db.collection("product")
     apr.get().then(function (querySnapshot) {
-      /*querySnapshot.forEach(function (doc) {
-        var data = doc.data();
-        console.log(data);
-        var allP_template = $('#allP_template').html();
-        querySnapshot
-        var html = ejs.render(allP_template, { allP: data });
-        console.log(html);
-        $('#allP').html(html);
-        
-      })*/
+     
       var allPr_template = $('#allPr_template').html();
       console.log(querySnapshot);
       var html = ejs.render(allPr_template, { allPr: querySnapshot.docs });
       $('#allPr').html(html);
-    })
+    })}
+    else{var apr = db.collection("product").where("category","==",name1);
+    apr.get().then(function (querySnapshot) {
+      
+      var allPr_template = $('#allPr_template').html();
+      console.log(querySnapshot);
+      var html = ejs.render(allPr_template, { allPr: querySnapshot.docs });
+      $('#allPr').html(html);
+    })}
   }
 
 
