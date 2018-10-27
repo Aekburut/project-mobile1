@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="ejs.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
+
+
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+  .w3-bar-block .w3-bar-item {padding:20px}
+  </style>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCiPDRWs80XRv4TsPT1Rur3-Kawn8N2dTU",
+      authDomain: "shopee-3b75a.firebaseapp.com",
+      databaseURL: "https://shopee-3b75a.firebaseio.com",
+      projectId: "shopee-3b75a",
+      storageBucket: "shopee-3b75a.appspot.com",
+      messagingSenderId: "722223313355"
+    };
+    firebase.initializeApp(config);
+    // Initialize Cloud Firestore through Firebase
+
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+
+    db.settings({
+      timestampsInSnapshots: true
+    });
+  </script>
+
+  <style>
+    .toolbaricon {
+      padding-left: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      color: rgb(228, 5, 5);
+    }
+  </style>
+</head>
+
+
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-icon class="toolbaricon" size="30px" icon="fa-shopping-bag">
+        </ons-icon>
+      </div>
+      <div class="center" id="appname">By Geem</div>
+      <div class="right">
+        <ons-icon class="toolbaricon" size="30px" icon="md-help">
+        </ons-icon>
+      </div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active-icon="fa-bomb" badge="Geem"
+        active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-heart" badge="3">
+      </ons-tab>
+      <ons-tab page="tab3.html" label="food" icon="fa-tripadvisor" active-icon="fa-coffee">
+      </ons-tab>
+      <ons-tab page="tab4.html" label="shopping" icon="fa-cart-plus" active-icon="fa-hand-peace-o">
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="tab1.html">
+    <ons-page id="Tab1">
+      <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
+      </p>
+
+      <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
+        <ons-carousel-item id="carousel1" style="background: url('images/1.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+        <ons-carousel-item id="carousel2" style="background: url('images/2.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+        <ons-carousel-item id="carousel3" style="background: url('images/3.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+      </ons-carousel>
+
+      <div id="icons"></div>
+
+      <script id="icon_template" type="text/template">
+          <ons-row style="height:120px" vertical-align="center">
+        <% categories.forEach(function(category){%>
+        <ons-col style="background:#FFD700;" width="33%">
+          <p style="text-align: center; margin: 10px;">
+            <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
+          </p>
+          <p style="text-align: center; margin: 10px;" id="icon1_text">
+            <%= category.name %>
+          </p>
+        </ons-col>
+        <%});%>
+      </ons-row>
+        </script>
+
+    </ons-page>
+  </template>
+
+
+
+  <template id="tab2.html">
+    <ons-page id="Tab2">
+      <ons-list>
+        <ons-list-header>Shopping Cart</ons-list-header>
+        <ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="images/item1.jpg">
+          </div>
+          <div class="center">
+            <span class="list-item__title">Apple Watch Series 3 GPS 42mm Grey</span>
+            <span class="list-item__subtitle" style="color: blue">฿12,650.00</span>
+          </div>
+          <div class="right">
+            <p style="text-align: center; margin: 10px;">
+              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+            </p>
+          </div>
+        </ons-list-item>
+        <ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="images/item2.jpg">
+          </div>
+          <div class="center">
+            <span class="list-item__title">MICROLAB SPEAKER 2.1</span>
+            <span class="list-item__subtitle" style="color: blue">฿1,570.00</span>
+          </div>
+          <div class="right">
+            <p style="text-align: center; margin: 10px;">
+              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+            </p>
+          </div>
+        </ons-list-item>
+        <ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="images/item3.jpg">
+          </div>
+          <div class="center">
+            <span class="list-item__title">Nike Air Max 90 ดำเทาแดง เบอร์ 40</span>
+            <span class="list-item__subtitle" style="color: blue">฿2,990.00</span>
+          </div>
+          <div class="right">
+            <p style="text-align: center; margin: 10px;">
+              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+            </p>
+          </div>
+        </ons-list-item>
+      </ons-list>
+      <p style="text-align: center; margin: 10px;">
+        <ons-button modifier="large">PROCEED TO PAY</ons-button>
+      </p>
+    </ons-page>
+  </template>
+
+  <template id="tab3.html">
+    <ons-page id="Tab3">
+      <p style="text-align: center; margin: 10px;">
+        <ons-button modifier="large" onclick="addNewData();">
+          Add new Data
+        </ons-button>
+      </p>
+    </ons-page>
+  </template>
+  <template id="tab4.html">
+    <ons-page id="Tab4">
+        <!-- Sidebar (hidden by default) -->
+        <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px"
+        id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Menu</a>
+        <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
+        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
+      </nav>
+
+      <!-- Top menu -->
+      <div class="w3-top">
+        <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+          <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+          <div class="w3-right w3-padding-16">
+            <ons-icon class="toolbaricon" size="30px" icon="fa-external-link">
+            </ons-icon>
+          </div>
+          <div class="w3-center w3-padding-16">My Restaurant</div>
+        </div>
+      </div>
+
+      <!-- !PAGE CONTENT! -->
+      <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+        <!-- First Photo Grid-->
+        <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+          <div class="w3-quarter">
+            <img src="images/sandwich.jpg" alt="Sandwich" style="width:100%">
+            <h3>The Perfect Sandwich, A Real NYC Classic</h3>
+            <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿500.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/steak.jpg" alt="Steak" style="width:100%">
+            <h3>Let Me Tell You About This Steak</h3>
+            <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿500.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/cherries.jpg" alt="Cherries" style="width:100%">
+            <h3>Cherries, interrupted</h3>
+            <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <p>What else?</p>
+            <span class="list-item__subtitle" style="color: blue">฿600.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/wine.jpg" alt="Pasta and Wine" style="width:100%">
+            <h3>Once Again, Robust Wine and Vegetable Pasta</h3>
+            <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿700.00</span>
+          </div>
+        </div>
+
+        <!-- Second Photo Grid-->
+        <div class="w3-row-padding w3-padding-16 w3-center">
+          <div class="w3-quarter">
+            <img src="images/popsicle.jpg" alt="Popsicle" style="width:100%">
+            <h3>All I Need Is a Popsicle</h3>
+            <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿400.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/salmon.jpg" alt="Salmon" style="width:100%">
+            <h3>Salmon For Your Skin</h3>
+            <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿900.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/sandwich.jpg" alt="Sandwich" style="width:100%">
+            <h3>The Perfect Sandwich, A Real Classic</h3>
+            <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿500.00</span>
+          </div>
+          <div class="w3-quarter">
+            <img src="images/croissant.jpg" alt="Croissant" style="width:100%">
+            <h3>Le French</h3>
+            <p>Lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+            <span class="list-item__subtitle" style="color: blue">฿200.00</span>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="w3-center w3-padding-32">
+          <div class="w3-bar">
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+            <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+          </div>
+        </div>
+
+        <hr id="about">
+
+        <!-- About Section -->
+        <div class="w3-container w3-padding-32 w3-center">
+          <h3>About Me, The Food Man</h3><br>
+          <img src="images/chef.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
+          <div class="w3-padding-32">
+            <h4><b>I am Tigger!</b></h4>
+            <h6><i>With Passion For Real, Good Food</i></h6>
+            <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of
+              lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus
+              ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+              Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies
+              congue gravida diam non fringilla.</p>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Footer -->
+        <footer class="w3-row-padding w3-padding-32">
+          <div class="w3-third">
+            <h3>FOOTER</h3>
+            <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies
+              congue gravida diam non fringilla.</p>
+            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+          </div>
+
+          <div class="w3-third">
+            <h3>BLOG POSTS</h3>
+            <ul class="w3-ul w3-hoverable">
+              <li class="w3-padding-16">
+                <img src="images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+                <span class="w3-large">Lorem</span><br>
+                <span>Sed mattis nunc</span>
+              </li>
+              <li class="w3-padding-16">
+                <img src="images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+                <span class="w3-large">Ipsum</span><br>
+                <span>Praes tinci sed</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="w3-third w3-serif">
+            <h3>POPULAR TAGS</h3>
+            <p>
+              <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New
+                York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
+              <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
+            </p>
+          </div>
+        </footer>
+
+        <!-- End page content -->
+      </div>
+
+
+
+    </ons-page>
+  </template>
+
+</body>
+<script>
+  getHomeData();
+  document.addEventListener('prechange', function (event) {
+    if (event.index == 0) {
+      console.log('Home clicked');
+      // get data for home screen  
+      getHomeData();
+    } else if (event.index == 1) {
+      console.log('Cart clicked');
+      // get data for cart screen  
+      getCartData();
+    }
+    else if (event.index == 2) {
+      console.log('product clicked');
+      // get data for cart screen  
+      getallproductData();
+    }
+
+
+  });
+  function getHomeData() {
+    var docRef = db.collection('UI').doc('home');
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        $('#appname').html(data.appname);
+        var style = "background: url('images/" + data.slides[0] + "') no-repeat center; background-size: contain;'";
+        $('#carousel1').attr('style', style)
+        var icon_template = $('#icon_template').html();
+        var html = ejs.render(icon_template, { categories: data.categories });
+        $('#icons').html(html);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+
+    // // $.getJSON('home.json', function (data) {
+    // //   console.log(data);
+    // //   $('#appname').html(data.appname);
+    // //   var style = "background: url('images/" + data.slides[0] + "') no-repeat center; background-size: contain;'";
+    // //   $('#carousel1').attr('style', style)
+    // //   var icon_template = $('#icon_template').html();
+    // //   var html = ejs.render(icon_template, {categories : data.categories});
+    // //   $('#icons').html(html);
+    // });
+  }
+  function getCartData() {
+    $.getJSON('cart.json', function (data) {
+      console.log(data);
+    });
+  }
+
+  function getallProductData() {
+    var productRef = db.collection("product").where("category", "==", "sport");
+    productRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
+  }
+  function addNewData() {
+    var data = {
+      pid: 4,
+      title: 'iphonexs',
+      price: 50000,
+      category: phone,
+    }
+    db.collection("product").add
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+
+  }
+
+</script>
+
+</html>
