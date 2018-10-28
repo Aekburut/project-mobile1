@@ -199,7 +199,7 @@
                 <div class="center">Detail</div>
             </ons-toolbar>
     
-           <div id="showDep">เเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเเ</div>
+           <div id="showDep"></div>
           
            <script id="Detailproduct_template" type="text/template">
               <ons-card>
@@ -353,7 +353,7 @@
     // }
     function showDetailP() {
     var dataproduct = localStorage.getItem('getDep');
-    var apr = db.collection("Products").where("title", "==", dataproduct);
+    var apr = db.collection("product").where("title", "==", dataproduct);
     apr.get().then(function (querySnapshot) {
       var Detailproduct_template = $('#Detailproduct_template').html();
       var html = ejs.render(Detailproduct_template, { dataDep: querySnapshot.docs });
