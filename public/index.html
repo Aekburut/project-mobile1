@@ -166,11 +166,11 @@
             var item = allPro.data();
   
             %>  
-            <ons-col width="100%" onclick="getDetail('<%item.title%>')">
+            <ons-col width="100%" onclick="getDetail('<%=item.title%>')">
               <ons-card>
                 <center><img src="<%=item.photo%>" alt="Onsen UI" style="width: 50%"></center>
                 <div class="title">
-                  <%=item.title%>
+                 <%=item.title%>
                 </div>
                 <div class="content" id="Pdetail">
                   Price: <%= item.price %>
@@ -181,19 +181,19 @@
           </script>
     
           </ons-row>
-          <ons-button modifier="large" onclick="addnewdata()" >
+          <!-- <ons-button modifier="large" onclick="addnewdata()" >
             ADD DATA
-          </ons-button>
+          </ons-button> -->
     
         </ons-page>
       </template>
-
-      <template id="detailP.html">
-        <ons-page>
-          <script>
+      <script>
           var datadep = localStorage.getItem('getDep');
           console.log(datadep)
           </script>
+      <template id="detailP.html">
+        <ons-page>
+        
             <ons-toolbar>
                 <div class="left"><ons-back-button>Back</ons-back-button></div>
                 <div class="center">Detail</div>
@@ -203,6 +203,7 @@
           
            <script id="Detailproduct_template" type="text/template">
               <ons-card>
+                 
                   <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
                     
                         <ons-carousel-item id="carousel1DeP" style="background: url('images/1.jpg') no-repeat center; background-size: contain;">
@@ -211,24 +212,25 @@
                         </ons-carousel-item>
                         <ons-carousel-item id="carousel3DeP" style="background: url('images/3.jpg') no-repeat center; background-size: contain;">
                         </ons-carousel-item>
-          
+                        
+                        
                  </ons-carousel>
                       <% dataDep.forEach(function(dataDep){   
                         var data = dataDep.data(); %>
+                        <img src="<%= data.photo %>" alt="" width=300px; height="300px">
+                      
                   <div class="title">
-                    <%= data.price%>kkkkkkkkkkk
+                    <%= data.price%>
                   </div>
                   <div class="content">
                     <div>
-                      <%= data.title %>ฟฟฟฟฟฟฟดดด
+                      <%= data.title %>
                     </div>
            
                   </div>
                   <%})%>
                 </ons-card>
-                
            </script>
-    
         </ons-page>
       </template>
   </body>
@@ -391,7 +393,7 @@
         category: 'smartphone'
       }
   
-      db.collection("products").add(data)
+      db.collection("product").add(data)
       .then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
       })
