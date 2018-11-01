@@ -58,7 +58,7 @@
 <body style="background-color:#99FF33">
     <ons-navigator swipeable id="myNavigator">
     <ons-page>
-      <ons-toolbar style="background-color:#99FF33">
+      <ons-toolbar style="background-color:#FFCC00">
         <div class="left">
           <ons-icon class="toolbaricon" size="30px" icon="fa-shopping-bag">
           </ons-icon>
@@ -71,11 +71,11 @@
       </ons-toolbar>
   
       <ons-tabbar swipeable position="auto" id="tabbar">
-        <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active style="background-color:#66FF00">
+        <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active style="background-color:#FFCC00">
         </ons-tab>
-        <ons-tab page="tab2.html" label="Cart" onclick="" icon="fa-shopping-cart" active-icon="fa-shopping-cart" style="background-color:#66FF00">
+        <ons-tab page="tab2.html" label="Cart" onclick="" icon="fa-shopping-cart" active-icon="fa-shopping-cart" style="background-color:#FFCC00">
         </ons-tab>
-        <ons-tab page="tab3.html" label="Products" icon="fa-braille" active-icon="fa-braille" style="background-color:#66FF00">
+        <ons-tab page="tab3.html" label="Products" icon="fa-braille" active-icon="fa-braille" style="background-color:#FFCC00">
         </ons-tab>
       </ons-tabbar>
     </ons-page>
@@ -116,7 +116,7 @@
     </template>
     <template id="tab2.html">
       <ons-page id="Tab2">
-        <p style="text-align: center;"><h5><b>Shopping Cart</b></h5></p>
+        <h1 style="text-align: center;">Shopping Cart</h1>
         
   <div id="showDataCart"></div>
   
@@ -144,7 +144,7 @@
         <%})%>
       </script>
         <p style="text-align: center; margin: 10px;">
-          <ons-button modifier="large">PROCEED TO PAY</ons-button>
+          <ons-button modifier="large" style="background-color:#FF9900">PROCEED TO PAY</ons-button>
         </p>
       </ons-page>
     </template>
@@ -229,7 +229,7 @@
            
                   </div>
                   <p style="text-align: center; margin: 10px;">
-                    <ons-button modifier="large" onclick="addtocart('<%= data.title %>');" >Add To Cart</ons-button>
+                    <ons-button modifier="large" onclick="addtocart('<%= data.title %>');" style="background-color:#FF9900">Add To Cart</ons-button>
                   </p>
                   <%})%>
                 </ons-card>
