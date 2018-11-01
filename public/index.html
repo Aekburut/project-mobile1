@@ -50,12 +50,12 @@
       padding-left: 5px;
       padding-bottom: 5px;
       padding-right: 5px;
-      color: rgb(100, 100, 64);
+      color: rgb(172, 0, 0);
     }
   </style>
 </head>
 
-<body>
+<body style="background-color:#99FF33">
     <ons-navigator swipeable id="myNavigator">
     <ons-page>
       <ons-toolbar style="background-color:#99FF33">
@@ -99,9 +99,9 @@
         <script id="icon_template" type="text/template">
           <ons-row style="height:120px" vertical-align="center">  
           <% categories.forEach(function(category){%>  
-          <ons-col style="background:#CCFF00;" width="33%" onclick="changeTab('<%= category.name %>')">
+          <ons-col style="background:<%= category.color %>;" width="33%" onclick="changeTab('<%= category.name %>')">
             <p style="text-align: center; margin: 10px;">
-              <ons-icon size="60px" icon="<%= category.icon %>" ></ons-icon>
+              <ons-icon size="60px" icon="<%= category.icon %>" style="color:#CC0000" ></ons-icon>
             </p>
             <p style="text-align: center; margin: 10px;" id="icon1_text">
               <%= category.name %>
@@ -166,7 +166,7 @@
   
             %>  
             <ons-col width="50%" onclick="getDetail('<%=item.title%>')">
-              <ons-card style="width:90%; height:90%;">
+              <ons-card  style="width:90%; height:90%;">
                 <center><img src="<%=item.photo1%>" alt="Onsen UI" style="width:120px; height:120px;"></center>
                 <div class="title">
                  <%=item.title%>
