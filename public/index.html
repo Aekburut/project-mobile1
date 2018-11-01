@@ -223,13 +223,12 @@
                     <%= data.price%>
                   </div>
                   <div class="content">
-                    <div>
-                      <%= data.title %>
-                    </div>
-           
+                  <div>
+                      <%= data.title%>
+                  </div>
                   </div>
                   <p style="text-align: center; margin: 10px;">
-                    <ons-button modifier="large" onclick="addtocart('<%= data.title %>');" style="background-color:#FF9900">Add To Cart</ons-button>
+                    <ons-button modifier="large" onclick="addtocart('<%= data.title%>');" style="background-color:#FF9900">Add To Cart</ons-button>
                   </p>
                   <%})%>
                 </ons-card>
@@ -476,6 +475,7 @@ var retrievedData = localStorage.getItem("quentinTarantino");
 console.log(retrievedData);
 dataCart.push(retrievedData);
 alert(dataCart);
+getData2cart();
 }
 
 
